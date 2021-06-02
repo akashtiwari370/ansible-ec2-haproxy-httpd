@@ -1,0 +1,28 @@
+- hosts: localhost
+  vars_files:
+          - awscre.yml
+  tasks: 
+      
+          - name: "launching lb instance"
+            ec2:
+                 aws_access_key: "{{ access }}"
+                 aws_secret_key: "{{ secret }}"    
+                 image: ami-045e6fa7127ab1ac4
+                 instance_type: t2.micro
+                 count: 1
+                 group: launch-wizard-1
+                 key_name: ansible-lb-key
+                 region: ap-south-1
+                         
+          - name: "launching webserver instance"
+            ec2:
+                 aws_access_key: "{{ access }}"
+                 aws_secret_key: "{{ secret }}"
+                 image: ami-045e6fa7127ab1ac4
+                 instance_type: t2.micro
+                 count: 2
+                 group: launch-wizard-1
+                 key_name: ansible-lb-key
+                 region: ap-south-1
+
+       
